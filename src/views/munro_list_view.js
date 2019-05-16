@@ -6,16 +6,18 @@ const MunroListView = function(element){
 }
 
 MunroListView.prototype.bindEvents = function(){
-    PubSub.subscribe('Munros:all-data', (event) => {
+    PubSub.subscribe('Munros:munros-of-region', (event) => {
         console.log('MunroListView subscribes to Munros:all-data');
         console.log(event.detail)
-        this.allTheMunros = event.detail
-        this.populate()
+        const allTheMunros = event.detail
+        console.log(allTheMunros);
+        this.populate(allTheMunros)
+        
     })  
 }
 
-MunroListView.prototype.populate = function(){
-    this.allTheMunros.forEach((munro) => {
+MunroListView.prototype.populate = function(allTheMunros){
+    allTheMunros.forEach((munro) => {
         
         const munroView = new MunroView(this.element, munro)
         munroView.render()
